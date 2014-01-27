@@ -7,7 +7,7 @@ describe 'supervisord' do
   let(:facts) { { :ipaddress => '10.42.42.42' } }
 
   describe 'Test standard installation' do
-    it { should contain_package('supervisord').with_ensure('present') }
+    it { should contain_package('supervisor').with_ensure('present') }
     it { should contain_service('supervisord').with_ensure('running') }
     it { should contain_service('supervisord').with_enable('true') }
     it { should contain_file('supervisord.conf').with_ensure('present') }
@@ -15,12 +15,12 @@ describe 'supervisord' do
 
   describe 'Test installation of a specific version' do
     let(:params) { {:version => '1.0.42' } }
-    it { should contain_package('supervisord').with_ensure('1.0.42') }
+    it { should contain_package('supervisor').with_ensure('1.0.42') }
   end
 
   describe 'Test standard installation with monitoring and firewalling' do
     let(:params) { {:monitor => true , :firewall => true, :port => '42', :protocol => 'tcp' } }
-    it { should contain_package('supervisord').with_ensure('present') }
+    it { should contain_package('supervisor').with_ensure('present') }
     it { should contain_service('supervisord').with_ensure('running') }
     it { should contain_service('supervisord').with_enable('true') }
     it { should contain_file('supervisord.conf').with_ensure('present') }
@@ -30,7 +30,7 @@ describe 'supervisord' do
 
   describe 'Test decommissioning - absent' do
     let(:params) { {:absent => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
-    it 'should remove Package[supervisord]' do should contain_package('supervisord').with_ensure('absent') end
+    it 'should remove Package[supervisor]' do should contain_package('supervisor').with_ensure('absent') end
     it 'should stop Service[supervisord]' do should contain_service('supervisord').with_ensure('stopped') end
     it 'should not enable at boot Service[supervisord]' do should contain_service('supervisord').with_enable('false') end
     it 'should remove supervisord configuration file' do should contain_file('supervisord.conf').with_ensure('absent') end
@@ -40,7 +40,7 @@ describe 'supervisord' do
 
   describe 'Test decommissioning - disable' do
     let(:params) { {:disable => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
-    it { should contain_package('supervisord').with_ensure('present') }
+    it { should contain_package('supervisor').with_ensure('present') }
     it 'should stop Service[supervisord]' do should contain_service('supervisord').with_ensure('stopped') end
     it 'should not enable at boot Service[supervisord]' do should contain_service('supervisord').with_enable('false') end
     it { should contain_file('supervisord.conf').with_ensure('present') }
@@ -50,7 +50,7 @@ describe 'supervisord' do
 
   describe 'Test decommissioning - disableboot' do
     let(:params) { {:disableboot => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
-    it { should contain_package('supervisord').with_ensure('present') }
+    it { should contain_package('supervisor').with_ensure('present') }
     it { should_not contain_service('supervisord').with_ensure('present') }
     it { should_not contain_service('supervisord').with_ensure('absent') }
     it 'should not enable at boot Service[supervisord]' do should contain_service('supervisord').with_enable('false') end
@@ -61,7 +61,7 @@ describe 'supervisord' do
 
   describe 'Test noops mode' do
     let(:params) { {:noops => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
-    it { should contain_package('supervisord').with_noop('true') }
+    it { should contain_package('supervisor').with_noop('true') }
     it { should contain_service('supervisord').with_noop('true') }
     it { should contain_file('supervisord.conf').with_noop('true') }
     it { should contain_monitor__process('supervisord_process').with_noop('true') }
