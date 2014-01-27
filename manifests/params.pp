@@ -17,7 +17,7 @@ class supervisord::params {
   ### Application related parameters
 
   $package = $::operatingsystem ? {
-    default => 'supervisord',
+    default => 'supervisor',
   }
 
   $service = $::operatingsystem ? {
@@ -45,7 +45,7 @@ class supervisord::params {
   }
 
   $config_file = $::operatingsystem ? {
-    default => '/etc/supervisord/supervisord.conf',
+    default => '/etc/supervisor/supervisord.conf',
   }
 
   $config_file_mode = $::operatingsystem ? {
